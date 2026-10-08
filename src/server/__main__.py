@@ -1,4 +1,5 @@
 import websockets, asyncio
+from constants import *
 
 URL = "ws://127.0.0.1:8000"
 
@@ -12,8 +13,8 @@ async def lisening_events(websocket : websockets.ServerConnection):
                 print(mensagem)
 
 async def launch_ws():
-    async with websockets.serve(lisening_events, "0.0.0.0", 8000):
-        print("[!] Servidor WebSocket rodando em ws://localhost:8000")
+    async with websockets.serve(lisening_events, "0.0.0.0", PORT):
+        print(f"[!] Servidor WebSocket rodando em ws://localhost:{PORT}")
         await asyncio.Event().wait()
         
 asyncio.run(launch_ws())
