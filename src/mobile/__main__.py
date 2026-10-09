@@ -38,4 +38,9 @@ async def test():
                     )
 
 if __name__=="__main__":
-    asyncio.run(test())
+    try:
+        asyncio.run(test())
+    except KeyboardInterrupt:
+        print(f"\nClient killed by KeyboardInterrupt")
+    except ConnectionRefusedError:
+        print(f"\nConnect failed!")
