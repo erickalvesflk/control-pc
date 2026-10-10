@@ -1,8 +1,8 @@
-from typing import TypedDict, Literal, Any, get_args
+from typing import TypedDict, Literal, Any, get_args, Tuple
 from websockets import ServerConnection 
 import json
 
-type message_author = Literal["mobile", "server"]
+type message_author = Tuple[str,int]
 type message_action = Literal["volume","mute","pause","moveprogress","change"]
 type message_move_progress = Literal["backward","forward"]
 type message_change_midia = Literal["previous","next"]
@@ -11,7 +11,7 @@ class Message(TypedDict):
     """basic structure of a message"""
     author: message_author
     action: message_action
-    value: Any
+    value: str
 
 class MessageVolume(Message):
     """Message relationed with change of the volume"""
@@ -34,7 +34,7 @@ def message_validation(msg : str) -> bool:
         md : Message = json.loads(msg)
 
         if not {'author', 'action', 'value'}.issubset(md.keys()): return False
-        if not(md['author'] in get_args(message_author.__value__)): return False
+        if not(md['author']): return False
         if not(md['action'] in get_args(message_action.__value__)): return False
 
         return True
