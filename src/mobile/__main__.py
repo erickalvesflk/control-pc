@@ -3,37 +3,6 @@ import messages
 
 URL = "ws://127.0.0.1:8000"
 
-async def client_handler(websocket : websockets.ClientConnection, cat : str, value : str):
-    match cat:
-        case 'volume':
-            await messages.send_message(
-                websocktet=websocket,
-                msg_author='mobile',
-                msg_action='volume',
-                msg_value=value
-            )
-        case 'pause':
-            await messages.send_message(
-                websocktet=websocket,
-                msg_author='mobile',
-                msg_action='pause',
-                msg_value=value
-            )
-        case 'moveprogress':
-            await messages.send_message(
-                websocktet=websocket,
-                msg_author='mobile',
-                msg_action='moveprogress',
-                msg_value=value
-            )
-        case 'change':
-            await messages.send_message(
-                websocktet=websocket,
-                msg_author='mobile',
-                msg_action='change',
-                msg_value=value
-            )
-
 async def client():
     async with websockets.connect(URL) as websocket:
         while(True):
